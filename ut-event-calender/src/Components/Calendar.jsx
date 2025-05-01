@@ -34,6 +34,14 @@ export default function Calendar() {
         tooltips.forEach((tooltip) => tooltip.remove());
     }
 
+    const EventClickHandler = (e) => {
+        const updatedEvents = events.filter(
+          (event) => event.name !== e.event.name
+        );
+        hideTooltip();
+        setEvents(updatedEvents);
+      };
+
     return (
         <div className="container">
             <EventForm addEvent={addEvent} />
@@ -56,8 +64,9 @@ export default function Calendar() {
                         end: "dayGridMonth,timeGridWeek,timeGridDay"
                     }}
                     events={filteredEvents}
-                    eventMouseEnter={showTooltip}
-                    eventMouseLeave={hideTooltip}
+                    eventMouseEnter={(e) => showTooltip(e)}
+                    eventMouseLeave={ hideTooltip }
+                    eventClick={(e) => EventClickHandler(e)}
                     height={"90vh"}
                 />
             </div>
